@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "8734401f-05af-4055-a93f-bfe46faa2d9f",
+		"name": "ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30624493"
+	},
+	"item": [
+		{
+			"name": "Add Product to Cart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Proteína Whey Premium\",\n  \"description\": \"Proteína en polvo de alta calidad, ideal para la recuperación muscular y el crecimiento.\",\n  \"code\": \"PROT789\",\n  \"price\": 49.99,\n  \"stock\": 100,\n  \"category\": \"Suplementos\",\n  \"thumbnails\": [\n    \"http://example.com/protein_whey1.jpg\",\n    \"http://example.com/protein_whey2.jpg\"\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carts/cart_1723826926885/product/93ccf314-5d4f-44bc-9ee6-490d7472f4bc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts",
+						"cart_1723826926885",
+						"product",
+						"93ccf314-5d4f-44bc-9ee6-490d7472f4bc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Proteína Whey Star\",\n  \"description\": \"Proteína de suero de leche de alta calidad.\",\n  \"code\": \"STAR001\",\n  \"price\": 45.99,\n  \"stock\": 100,\n  \"category\": \"Proteínas\",\n  \"thumbnails\": [\"ruta/a/la/imagen1.jpg\", \"ruta/a/la/imagen2.jpg\"]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Proteína Whey Premium\",\n  \"description\": \"Proteína en polvo de alta calidad, ideal para la recuperación muscular y el crecimiento.\",\n  \"code\": \"PROT789\",\n  \"price\": 49.99,\n  \"stock\": 100,\n  \"category\": \"Suplementos\",\n  \"thumbnails\": [\n    \"http://example.com/protein_whey1.jpg\",\n    \"http://example.com/protein_whey2.jpg\"\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Carts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Proteína Whey Premium\",\n  \"description\": \"Proteína en polvo de alta calidad, ideal para la recuperación muscular y el crecimiento.\",\n  \"code\": \"PROT789\",\n  \"price\": 49.99,\n  \"stock\": 100,\n  \"category\": \"Suplementos\",\n  \"thumbnails\": [\n    \"http://example.com/protein_whey1.jpg\",\n    \"http://example.com/protein_whey2.jpg\"\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cart",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Proteína Whey Premium\",\n  \"description\": \"Proteína en polvo de alta calidad, ideal para la recuperación muscular y el crecimiento.\",\n  \"code\": \"PROT789\",\n  \"price\": 49.99,\n  \"stock\": 100,\n  \"category\": \"Suplementos\",\n  \"thumbnails\": [\n    \"http://example.com/protein_whey1.jpg\",\n    \"http://example.com/protein_whey2.jpg\"\n  ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/carts/cart_1723826926885",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carts",
+						"cart_1723826926885"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get products pid",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/products/93ccf314-5d4f-44bc-9ee6-490d7472f4bc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"93ccf314-5d4f-44bc-9ee6-490d7472f4bc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Product",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/products/84d2ac71-b5c1-4f99-9fcc-a9b1b796fb8f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"84d2ac71-b5c1-4f99-9fcc-a9b1b796fb8f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener prod de un carrito",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

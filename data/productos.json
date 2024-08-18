@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "title": "Star Whey Protein",
+    "description": "Proteína de suero de leche de alta calidad.",
+    "code": "SWP001",
+    "price": 50.99,
+    "status": true,
+    "stock": 100,
+    "category": "Proteínas",
+    "thumbnails": [
+      "http://example.com/images/star-whey-protein-1.jpg",
+      "http://example.com/images/star-whey-protein-2.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Ena Creatine",
+    "description": "Creatina monohidratada para mejorar el rendimiento.",
+    "code": "EC002",
+    "price": 29.99,
+    "status": true,
+    "stock": 50,
+    "category": "Creatinas",
+    "thumbnails": [
+      "http://example.com/images/ena-creatine-1.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Star BCAA",
+    "description": "Aminoácidos de cadena ramificada para la recuperación muscular.",
+    "code": "SBCAA003",
+    "price": 39.99,
+    "status": true,
+    "stock": 75,
+    "category": "Aminoácidos",
+    "thumbnails": [
+      "http://example.com/images/star-bcaa-1.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Ena Glutamine",
+    "description": "Glutamina para la recuperación y el fortalecimiento del sistema inmune.",
+    "code": "EG004",
+    "price": 25.99,
+    "status": true,
+    "stock": 60,
+    "category": "Aminoácidos",
+    "thumbnails": [
+      "http://example.com/images/ena-glutamine-1.jpg"
+    ]
+  }
+]
