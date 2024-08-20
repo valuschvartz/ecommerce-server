@@ -6,20 +6,27 @@
 La estructura del proyecto es la siguiente:
 
 ```
-my-express-app/
+supleboost/
 │
 ├── src/
 │   ├── routes/
-│   │   └── products.router.js
+│   │   ├── products.router.js
 │   │   └── carts.router.js
 │   ├── services/
-│   │   └── ProductManager.js
+│   │   ├── ProductManager.js
 │   │   └── CartManager.js
+│   ├── views/
+│   │   ├── layouts/
+│   │   │   └── main.handlebars
+│   │   ├── home.handlebars
+│   │   └── realTimeProducts.handlebars
 │   └── app.js
 │
 └── data/
-    └── productos.json
+    ├── productos.json
     └── carritos.json
+
+
 ```
 
 ## Endpoints de Productos
