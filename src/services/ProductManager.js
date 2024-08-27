@@ -5,7 +5,7 @@ class ProductManager {
     constructor(filePath) {
         this.filePath = filePath;
         this.products = [];
-        this.loadProducts();
+        this.loadProducts(); // Cargar los productos al inicializar la instancia
     }
 
     async loadProducts() {
@@ -13,48 +13,50 @@ class ProductManager {
             const data = await fs.readFile(this.filePath, 'utf-8');
             this.products = JSON.parse(data);
         } catch (err) {
+            console.error('Error al cargar los productos:', err);
             this.products = [];
         }
     }
 
     async saveProducts() {
-        await fs.writeFile(this.filePath, JSON.stringify(this.products, null, 2));
+        try {
+            await fs.writeFile(this.filePath, JSON.stringify(this.products, null, 2));
+        } catch (err) {
+            console.error('Error al guardar los productos:', err);
+        }
     }
 
     getAllProducts(limit) {
-        if (limit) {
-            return this.products.slice(0, limit);
-        }
-        return this.products;
+        return limit ? this.products.slice(0, limit) : this.products;
     }
 
     getProductById(id) {
-        return this.products.find(product => product.id === id);
+        return this.products.find(product => product.id === id) || null;
     }
 
-    addProduct(product) {
+    async addProduct(product) {
         const newId = this.products.length ? this.products[this.products.length - 1].id + 1 : 1;
         const newProduct = { id: newId, ...product };
         this.products.push(newProduct);
-        this.saveProducts();
+        await this.saveProducts();
         return newProduct;
     }
 
-    updateProduct(id, updatedFields) {
+    async updateProduct(id, updatedFields) {
         const index = this.products.findIndex(product => product.id === id);
         if (index !== -1) {
             this.products[index] = { ...this.products[index], ...updatedFields };
-            this.saveProducts();
+            await this.saveProducts();
             return this.products[index];
         }
         return null;
     }
 
-    deleteProduct(id) {
+    async deleteProduct(id) {
         const index = this.products.findIndex(product => product.id === id);
         if (index !== -1) {
-            const deletedProduct = this.products.splice(index, 1);
-            this.saveProducts();
+            const [deletedProduct] = this.products.splice(index, 1);
+            await this.saveProducts();
             return deletedProduct;
         }
         return null;

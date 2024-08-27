@@ -1,27 +1,32 @@
 const express = require('express');
 const router = express.Router();
 const ProductManager = require('../services/ProductManager');
-const productManager = new ProductManager();
+const path = require('path');
+
+// Crear instancia de ProductManager
+const productManager = new ProductManager(path.join(__dirname, '../../data/productos.json'));
 
 module.exports = function (io) {
-  router.get('/', async (req, res) => {
-    const products = await productManager.getProducts();
-    res.json(products);
-  });
+    // Obtener todos los productos
+    router.get('/', async (req, res) => {
+        const products = productManager.getAllProducts(); // Método sincrónico
+        res.json(products);
+    });
 
-  router.post('/', async (req, res) => {
-    const newProduct = await productManager.addProduct(req.body);
-    const products = await productManager.getProducts();
-    io.emit('updateProducts', products);
-    res.status(201).json(newProduct);
-  });
+    // Agregar un nuevo producto
+    router.post('/', async (req, res) => {
+        const newProduct = await productManager.addProduct(req.body);
+        io.emit('updateProducts', productManager.getAllProducts());
+        res.status(201).json(newProduct);
+    });
 
-  router.delete('/:id', async (req, res) => {
-    await productManager.deleteProduct(req.params.id);
-    const products = await productManager.getProducts();
-    io.emit('updateProducts', products);
-    res.sendStatus(204);
-  });
+    // Eliminar un producto
+    router.delete('/:pid', async (req, res) => {
+        const productId = parseInt(req.params.pid);
+        const deletedProduct = await productManager.deleteProduct(productId);
+        io.emit('updateProducts', productManager.getAllProducts());
+        res.status(200).json(deletedProduct);
+    });
 
-  return router;
+    return router;
 };
