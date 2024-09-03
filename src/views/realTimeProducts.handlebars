@@ -6,38 +6,17 @@
     <title>{{title}}</title>
 </head>
 <body>
-    <h1>Productos en Tiempo Real</h1>
+    <h1>{{title}}</h1>
     <ul id="product-list">
         {{#each products}}
-        <li>
-            <h2>{{this.title}}</h2>
-            <p><strong>Descripción:</strong> {{this.description}}</p>
-            <p><strong>Precio:</strong> ${{this.price}}</p>
-            <p><strong>Código:</strong> {{this.code}}</p>
-            <p><strong>Stock:</strong> {{this.stock}}</p>
-            <p><strong>Categoría:</strong> {{this.category}}</p>
-            {{#if this.thumbnails}}
-                <p><strong>Imágenes:</strong></p>
-                <ul>
-                    {{#each this.thumbnails}}
-                    <li><img src="{{this}}" alt="{{../title}}" style="width:100px;"></li>
-                    {{/each}}
-                </ul>
-            {{/if}}
-        </li>
+            <li>{{this.title}} - {{this.price}}</li>
         {{/each}}
     </ul>
 
-    <!-- Formulario para agregar un nuevo producto -->
-    <form id="add-product-form">
-        <h2>Agregar Nuevo Producto</h2>
-        <input type="text" id="title" placeholder="Nombre del producto" required><br>
-        <input type="text" id="description" placeholder="Descripción" required><br>
-        <input type="number" id="price" placeholder="Precio" required><br>
-        <input type="text" id="code" placeholder="Código" required><br>
-        <input type="number" id="stock" placeholder="Stock" required><br>
-        <input type="text" id="category" placeholder="Categoría" required><br>
-        <input type="text" id="thumbnails" placeholder="URL de imagen (opcional)"><br>
+    <h2>Agregar Producto</h2>
+    <form id="addProductForm">
+        <input type="text" id="productTitle" placeholder="Título" required>
+        <input type="number" id="productPrice" placeholder="Precio" required>
         <button type="submit">Agregar Producto</button>
     </form>
 
@@ -45,47 +24,28 @@
     <script>
         const socket = io();
 
-        // Escucha el evento 'updateProducts' para actualizar la lista de productos
+        // Actualizar la lista de productos cuando se recibe una actualización
         socket.on('updateProducts', (products) => {
             const productList = document.getElementById('product-list');
             productList.innerHTML = '';
             products.forEach(product => {
                 const li = document.createElement('li');
-                li.innerHTML = `
-                    <h2>${product.title}</h2>
-                    <p><strong>Descripción:</strong> ${product.description}</p>
-                    <p><strong>Precio:</strong> $${product.price}</p>
-                    <p><strong>Código:</strong> ${product.code}</p>
-                    <p><strong>Stock:</strong> ${product.stock}</p>
-                    <p><strong>Categoría:</strong> ${product.category}</p>
-                    ${product.thumbnails && product.thumbnails.length ? `
-                        <p><strong>Imágenes:</strong></p>
-                        <ul>
-                            ${product.thumbnails.map(thumbnail => `<li><img src="${thumbnail}" alt="${product.title}" style="width:100px;"></li>`).join('')}
-                        </ul>` : ''}
-                `;
+                li.textContent = `${product.title} - ${product.price}`;
                 productList.appendChild(li);
             });
         });
 
-        // Enviar nuevo producto usando WebSocket
-        document.getElementById('add-product-form').addEventListener('submit', (event) => {
+        // Formulario para agregar un nuevo producto
+        const form = document.getElementById('addProductForm');
+        form.addEventListener('submit', (event) => {
             event.preventDefault();
-            const newProduct = {
-                title: document.getElementById('title').value,
-                description: document.getElementById('description').value,
-                price: document.getElementById('price').value,
-                code: document.getElementById('code').value,
-                stock: document.getElementById('stock').value,
-                category: document.getElementById('category').value,
-                thumbnails: document.getElementById('thumbnails').value.split(',')
-            };
-            socket.emit('addProduct', newProduct);
-        });
 
-        // Manejar la creación del producto en el servidor
-        socket.on('productAdded', (newProduct) => {
-            socket.emit('updateProducts');
+            const newProduct = {
+                title: document.getElementById('productTitle').value,
+                price: document.getElementById('productPrice').value
+            };
+
+            socket.emit('addProduct', newProduct);
         });
     </script>
 </body>
