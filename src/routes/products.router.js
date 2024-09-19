@@ -2,7 +2,7 @@ const express = require('express');
 const { getProducts, getProductById, addProduct, updateProduct, deleteProduct } = require('../controllers/product.controller');
 const router = express.Router();
 
-// Obtener todos los productos con filtros, paginación, y ordenamiento
+// Obtener todos los productos con filtros, paginación y ordenamiento
 router.get('/', getProducts);
 
 // Obtener un producto por su ID

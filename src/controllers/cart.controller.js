@@ -1,5 +1,5 @@
-const Cart = require('../models/cart.model'); // Asegúrate de tener un modelo de Cart
-const Product = require('../models/product.model'); // Asegúrate de tener un modelo de Product
+const Cart = require('../models/Cart'); // Asegúrate de tener un modelo de Cart
+const Product = require('../models/Product'); // Asegúrate de tener un modelo de Product
 
 // Obtener todos los productos en un carrito específico
 const getCartDetails = async (req, res) => {
