@@ -1,32 +1,20 @@
 const express = require('express');
+const { getProducts, getProductById, addProduct, updateProduct, deleteProduct } = require('../controllers/product.controller');
 const router = express.Router();
-const ProductManager = require('../services/ProductManager');
-const path = require('path');
 
-// Crear instancia de ProductManager
-const productManager = new ProductManager(path.join(__dirname, '../../data/productos.json'));
+// Obtener todos los productos con filtros, paginación, y ordenamiento
+router.get('/', getProducts);
 
-module.exports = function (io) {
-    // Obtener todos los productos
-    router.get('/', async (req, res) => {
-        const products = productManager.getAllProducts(); // Método sincrónico
-        res.json(products);
-    });
+// Obtener un producto por su ID
+router.get('/:pid', getProductById);
 
-    // Agregar un nuevo producto
-    router.post('/', async (req, res) => {
-        const newProduct = await productManager.addProduct(req.body);
-        io.emit('updateProducts', productManager.getAllProducts());
-        res.status(201).json(newProduct);
-    });
+// Agregar un nuevo producto
+router.post('/', addProduct);
 
-    // Eliminar un producto
-    router.delete('/:pid', async (req, res) => {
-        const productId = parseInt(req.params.pid);
-        const deletedProduct = await productManager.deleteProduct(productId);
-        io.emit('updateProducts', productManager.getAllProducts());
-        res.status(200).json(deletedProduct);
-    });
+// Actualizar un producto por su ID
+router.put('/:pid', updateProduct);
 
-    return router;
-};
+// Eliminar un producto por su ID
+router.delete('/:pid', deleteProduct);
+
+module.exports = router;

@@ -1,37 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const CartManager = require('../services/CartManager');
-const cartManager = new CartManager('./data/carritos.json');
+const cartController = require('../controllers/cart.controller');
 
-// Ruta para crear un nuevo carrito
-router.post('/', async (req, res) => {
-  const newCart = await cartManager.createCart();
-  res.status(201).json({ message: 'Carrito creado exitosamente', payload: newCart });
-});
+// Obtener todos los productos en un carrito específico
+router.get('/:cid', cartController.getCartDetails);
 
-// Ruta para obtener un carrito por su ID
-router.get('/:cid', async (req, res) => {
-  const cartId = parseInt(req.params.cid);
-  const cart = await cartManager.getCartById(cartId);
+// Eliminar un producto del carrito
+router.delete('/:cid/products/:pid', cartController.removeProductFromCart);
 
-  if (cart) {
-    res.status(200).json({ message: 'Carrito encontrado', payload: cart });
-  } else {
-    res.status(404).json({ message: 'Carrito no encontrado' });
-  }
-});
+// Actualizar el carrito con un arreglo de productos
+router.put('/:cid', cartController.updateCart);
 
-// Ruta para agregar un producto a un carrito
-router.post('/:cid/product/:pid', async (req, res) => {
-  const cartId = parseInt(req.params.cid);
-  const productId = parseInt(req.params.pid);
-  const updatedCart = await cartManager.addProductToCart(cartId, productId);
+// Actualizar la cantidad de un producto en el carrito
+router.put('/:cid/products/:pid', cartController.updateProductQuantity);
 
-  if (updatedCart) {
-    res.status(200).json({ message: 'Producto agregado al carrito exitosamente', payload: updatedCart });
-  } else {
-    res.status(404).json({ message: 'Carrito o producto no encontrado' });
-  }
-});
+// Eliminar todos los productos del carrito
+router.delete('/:cid', cartController.clearCart);
 
 module.exports = router;

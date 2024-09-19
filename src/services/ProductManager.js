@@ -1,65 +1,73 @@
-const fs = require('fs-extra');
-const path = require('path');
+const mongoose = require('mongoose');
+const Product = require('../models/Product'); // Asegúrate de que la ruta sea correcta
 
 class ProductManager {
-    constructor(filePath) {
-        this.filePath = filePath;
-        this.products = [];
-        this.loadProducts(); // Cargar los productos al inicializar la instancia
+    constructor() {
+        this.init(); // Conectar a la base de datos al inicializar la instancia
     }
 
-    async loadProducts() {
+    async init() {
         try {
-            const data = await fs.readFile(this.filePath, 'utf-8');
-            this.products = JSON.parse(data);
+            // Asegúrate de que Mongoose está conectado
+            await mongoose.connect('mongodb://127.0.0.1:27017/supleboost', {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            });
+            console.log('Conectado a MongoDB');
         } catch (err) {
-            console.error('Error al cargar los productos:', err);
-            this.products = [];
+            console.error('Error al conectar a MongoDB:', err);
         }
     }
 
-    async saveProducts() {
+    async getAllProducts(limit) {
         try {
-            await fs.writeFile(this.filePath, JSON.stringify(this.products, null, 2));
+            const products = await Product.find().limit(limit);
+            return products;
         } catch (err) {
-            console.error('Error al guardar los productos:', err);
+            console.error('Error al obtener los productos:', err);
+            return [];
         }
     }
 
-    getAllProducts(limit) {
-        return limit ? this.products.slice(0, limit) : this.products;
-    }
-
-    getProductById(id) {
-        return this.products.find(product => product.id === id) || null;
+    async getProductById(id) {
+        try {
+            const product = await Product.findById(id);
+            return product || null;
+        } catch (err) {
+            console.error('Error al obtener el producto por ID:', err);
+            return null;
+        }
     }
 
     async addProduct(product) {
-        const newId = this.products.length ? this.products[this.products.length - 1].id + 1 : 1;
-        const newProduct = { id: newId, ...product };
-        this.products.push(newProduct);
-        await this.saveProducts();
-        return newProduct;
+        try {
+            const newProduct = new Product(product);
+            await newProduct.save();
+            return newProduct;
+        } catch (err) {
+            console.error('Error al agregar el producto:', err);
+            return null;
+        }
     }
 
     async updateProduct(id, updatedFields) {
-        const index = this.products.findIndex(product => product.id === id);
-        if (index !== -1) {
-            this.products[index] = { ...this.products[index], ...updatedFields };
-            await this.saveProducts();
-            return this.products[index];
+        try {
+            const updatedProduct = await Product.findByIdAndUpdate(id, updatedFields, { new: true });
+            return updatedProduct || null;
+        } catch (err) {
+            console.error('Error al actualizar el producto:', err);
+            return null;
         }
-        return null;
     }
 
     async deleteProduct(id) {
-        const index = this.products.findIndex(product => product.id === id);
-        if (index !== -1) {
-            const [deletedProduct] = this.products.splice(index, 1);
-            await this.saveProducts();
-            return deletedProduct;
+        try {
+            const deletedProduct = await Product.findByIdAndDelete(id);
+            return deletedProduct || null;
+        } catch (err) {
+            console.error('Error al eliminar el producto:', err);
+            return null;
         }
-        return null;
     }
 }
 

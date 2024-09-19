@@ -3,37 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Productos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Lista de Productos</h1>
-    <ul>
-        {{#each products}}
-        <li>
-            <h2>{{this.title}}</h2>
-            <p>{{this.description}}</p>
-            <p>Precio: ${{this.price}}</p>
-            <p>Código: {{this.code}}</p>
-            <p>Stock: {{this.stock}}</p>
-            <p>Categoría: {{this.category}}</p>
-            {{#if this.thumbnails}}
-                <p>Imágenes:</p>
-                <ul>
-                    {{#each this.thumbnails}}
-                    <li><img src="{{this}}" alt="{{../title}}"></li>
-                    {{/each}}
-                </ul>
+    <div class="container mt-4">
+        <h1>Productos</h1>
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.name}}</h5>
+                        <p class="card-text">Precio: ${{this.price}}</p>
+                        <p class="card-text">Categoría: {{this.category}}</p>
+                        <a href="/products/{{this._id}}" class="btn btn-primary">Ver Detalles</a>
+                        <button class="btn btn-success add-to-cart" data-id="{{this._id}}">Agregar al Carrito</button>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="pagination">
+            {{#if hasPrevPage}}
+                <a href="?page={{prevPage}}&limit={{limit}}&sort={{sort}}&query={{query}}" class="btn btn-link">Anterior</a>
             {{/if}}
-        </li>
-        {{/each}}
-    </ul>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const socket = io();
+            {{#if hasNextPage}}
+                <a href="?page={{nextPage}}&limit={{limit}}&sort={{sort}}&query={{query}}" class="btn btn-link">Siguiente</a>
+            {{/if}}
+        </div>
+    </div>
 
-        socket.on('productListUpdated', (products) => {
-            // Aquí podrías actualizar la lista de productos en tiempo real
-            console.log('Lista de productos actualizada:', products);
+    <script>
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const productId = button.getAttribute('data-id');
+                fetch(`/api/carts/add-product`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ productId, quantity: 1 })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                })
+                .catch(error => console.error('Error:', error));
+            });
         });
     </script>
 </body>
