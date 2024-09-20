@@ -1,13 +1,35 @@
 const Product = require('../models/Product');
 
-// Obtener todos los productos
+// Obtener todos los productos con paginación, filtrado y ordenamiento
 const getProducts = async (req, res) => {
     try {
-        const products = await Product.find(); // Obtener todos los productos
-        res.status(200).json({ status: 'success', payload: products });
+        const { limit = 10, page = 1, sort = '', query = '' } = req.query;
+        const options = {
+            page: parseInt(page),
+            limit: parseInt(limit),
+            sort: sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {},
+        };
+
+        const filter = query ? { $text: { $search: query } } : {};
+
+        const result = await Product.paginate(filter, options);
+
+        // Renderizar la vista 'products.handlebars' y pasarle los productos
+        res.render('products', {
+            products: result.docs,
+            title: 'Lista de Productos',
+            totalPages: result.totalPages,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            page: result.page,
+            hasPrevPage: result.hasPrevPage,
+            hasNextPage: result.hasNextPage,
+            prevLink: result.hasPrevPage ? `/products?limit=${limit}&page=${result.prevPage}&sort=${sort}&query=${query}` : null,
+            nextLink: result.hasNextPage ? `/products?limit=${limit}&page=${result.nextPage}&sort=${sort}&query=${query}` : null,
+        });
     } catch (error) {
-        console.error(error); // Log de error
-        res.status(500).json({ message: 'Error al obtener los productos', error });
+        console.error('Error en getProducts:', error);
+        res.status(500).send('Error al obtener los productos');
     }
 };
 
@@ -22,7 +44,7 @@ const getProductById = async (req, res) => {
             res.status(404).json({ message: 'Producto no encontrado' });
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error en getProductById:', error); // Log de error
         res.status(500).json({ message: 'Error al obtener el producto', error });
     }
 };
@@ -34,7 +56,7 @@ const addProduct = async (req, res) => {
         const savedProduct = await newProduct.save();
         res.status(201).json({ status: 'success', payload: savedProduct });
     } catch (error) {
-        console.error(error);
+        console.error('Error en addProduct:', error); // Log de error
         res.status(500).json({ message: 'Error al agregar el producto', error });
     }
 };
@@ -50,7 +72,7 @@ const updateProduct = async (req, res) => {
             res.status(404).json({ message: 'Producto no encontrado' });
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error en updateProduct:', error); // Log de error
         res.status(500).json({ message: 'Error al actualizar el producto', error });
     }
 };
@@ -66,7 +88,7 @@ const deleteProduct = async (req, res) => {
             res.status(404).json({ message: 'Producto no encontrado' });
         }
     } catch (error) {
-        console.error(error);
+        console.error('Error en deleteProduct:', error); // Log de error
         res.status(500).json({ message: 'Error al eliminar el producto', error });
     }
 };

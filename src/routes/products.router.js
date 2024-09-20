@@ -9,7 +9,15 @@ router.get('/', getProducts);
 router.get('/:pid', getProductById);
 
 // Agregar un nuevo producto
-router.post('/', addProduct);
+router.post('/', async (req, res) => {
+    try {
+        const newProduct = new Product(req.body); // Asegúrate de importar el modelo
+        await newProduct.save();
+        res.status(201).json({ status: 'success', message: 'Producto creado correctamente', product: newProduct });
+    } catch (error) {
+        res.status(500).json({ status: 'error', message: error.message });
+    }
+});
 
 // Actualizar un producto por su ID
 router.put('/:pid', updateProduct);
