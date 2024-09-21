@@ -9,7 +9,7 @@ class ProductManager {
     async init() {
         try {
             // Asegúrate de que Mongoose está conectado
-            await mongoose.connect('mongodb://127.0.0.1:27017/supleboost', {
+            await mongoose.connect('mongodb://127.0.0.1:27017/ecommerce', {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
             });
