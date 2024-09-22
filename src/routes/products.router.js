@@ -1,30 +1,27 @@
 const express = require('express');
-const Product = require('../models/Product'); // Asegúrate de que la ruta sea correcta
+const Product = require('../models/Product');
 const router = express.Router();
 
-// Ruta para obtener productos
+// Ruta para obtener productos con paginación
 router.get('/', async (req, res) => {
     try {
         const { limit = 10, page = 1, sort = '', query = '', category, available } = req.query;
 
         const options = {
-            page: parseInt(page),
-            limit: parseInt(limit),
+            page: parseInt(page) || 1,
+            limit: parseInt(limit) || 10,
             sort: {}
         };
 
         if (sort === 'asc') {
-            options.sort = { price: 1 }; // Orden ascendente
+            options.sort = { price: 1 };
         } else if (sort === 'desc') {
-            options.sort = { price: -1 }; // Orden descendente
+            options.sort = { price: -1 };
         }
 
         const filter = {};
-
-        // Limpiar el valor de query
         const cleanedQuery = query.trim();
 
-        // Ajustar el filtro por nombre o descripción
         if (cleanedQuery) {
             filter.$or = [
                 { name: { $regex: new RegExp(cleanedQuery, 'i') } },
@@ -32,12 +29,10 @@ router.get('/', async (req, res) => {
             ];
         }
 
-        // Filtrar por categoría
         if (category) {
             filter.category = category;
         }
 
-        // Filtrar por disponibilidad
         if (available === 'false') {
             filter.$or = [
                 { stock: 0 },
@@ -65,19 +60,13 @@ router.get('/', async (req, res) => {
     }
 });
 
-
-
 // Ruta para actualizar un producto
 router.put('/:pid', async (req, res) => {
     const { pid } = req.params;
     const { available, stock } = req.body;
 
     try {
-        const updatedProduct = await Product.findByIdAndUpdate(
-            pid,
-            { available, stock },
-            { new: true } // Devuelve el documento actualizado
-        );
+        const updatedProduct = await Product.findByIdAndUpdate(pid, { available, stock }, { new: true });
 
         if (!updatedProduct) {
             return res.status(404).json({ message: 'Producto no encontrado' });
@@ -98,7 +87,6 @@ router.put('/:pid', async (req, res) => {
 router.delete('/:pid', async (req, res) => {
     try {
         const { pid } = req.params;
-
         const deletedProduct = await Product.findByIdAndDelete(pid);
 
         if (!deletedProduct) {
@@ -113,6 +101,23 @@ router.delete('/:pid', async (req, res) => {
     } catch (error) {
         console.error('Error al eliminar el producto:', error);
         res.status(500).json({ message: 'Error al eliminar el producto', error });
+    }
+});
+
+// Ruta para obtener detalles de un producto
+router.get('/:pid', async (req, res) => {
+    const { pid } = req.params;
+    try {
+        const product = await Product.findById(pid);
+
+        if (!product) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+
+        res.render('productDetails', { product }); // Asegúrate de que 'productDetails' sea el nombre correcto de la vista
+    } catch (error) {
+        console.error('Error al obtener el producto:', error);
+        res.status(500).json({ message: 'Error al obtener el producto', error });
     }
 });
 

@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
-const Product = require('../models/Product'); // Asegúrate de que la ruta sea correcta
+const Product = require('../models/Product');
 
 class ProductManager {
     constructor() {
-        this.init(); // Conectar a la base de datos al inicializar la instancia
+        this.init();
     }
 
     async init() {
         try {
-            // Asegúrate de que Mongoose está conectado
             await mongoose.connect('mongodb://127.0.0.1:27017/ecommerce', {
                 useNewUrlParser: true,
                 useUnifiedTopology: true
@@ -19,9 +18,11 @@ class ProductManager {
         }
     }
 
-    async getAllProducts(limit) {
+    async getAllProducts(limit, page) {
         try {
-            const products = await Product.find().limit(limit);
+            const products = await Product.find()
+                .limit(limit)
+                .skip((page - 1) * limit);
             return products;
         } catch (err) {
             console.error('Error al obtener los productos:', err);

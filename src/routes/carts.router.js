@@ -8,23 +8,20 @@ const router = express.Router();
 router.post('/', createCart);
 
 // Obtener un carrito específico con productos poblados
-router.get('/:cid', async (req, res) => {
-    const { cid } = req.params;
-
+router.get('/', async (req, res) => {
     try {
-        console.log(`Buscando carrito con ID: ${cid}`);
-        const cart = await Cart.findById(cid).populate('products.product'); // Usar populate para obtener los detalles del producto
-        
+        // Aquí puedes obtener el carrito del usuario, por ejemplo:
+        const cartId = req.session.cartId; // Asumiendo que estás guardando el cartId en la sesión
+        const cart = await Cart.findById(cartId).populate('products.product'); // Poblar los productos
+
         if (!cart) {
-            console.log('Carrito no encontrado');
-            return res.status(404).json({ message: 'Carrito no encontrado' });
+            return res.render('cart', { title: 'Carrito', products: [] }); // Renderiza con un carrito vacío
         }
 
-        console.log(`Carrito encontrado:`, cart);
-        res.json(cart); // Devuelve el carrito con los productos poblados
+        res.render('cart', { title: 'Carrito', products: cart.products }); // Renderiza el carrito
     } catch (error) {
         console.error('Error al obtener el carrito:', error);
-        res.status(500).json({ message: 'Error al obtener el carrito', error: error.message || error });
+        res.status(500).send('Error al obtener el carrito');
     }
 });
 
@@ -41,14 +38,11 @@ router.put('/:cid/products/:pid', async (req, res) => {
     }
 
     try {
-        console.log(`Buscando carrito con ID: ${cid}`);
         const cart = await Cart.findById(cid);
         
         if (!cart) {
             return res.status(404).json({ message: 'Carrito no encontrado' });
         }
-
-        console.log(`Carrito encontrado:`, cart);
 
         const productIndex = cart.products.findIndex(p => p.product.toString() === pid.toString());
         
@@ -72,11 +66,9 @@ router.delete('/:cid', async (req, res) => {
     const { cid } = req.params;
 
     try {
-        console.log(`Buscando carrito con ID: ${cid}`);
         const cart = await Cart.findById(cid);
         
         if (!cart) {
-            console.log('Carrito no encontrado');
             return res.status(404).json({ message: 'Carrito no encontrado' });
         }
 
