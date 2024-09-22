@@ -49,6 +49,40 @@
             </div>
             {{/each}}
         </div>
+
+        <!-- Botones de paginación -->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <!-- Botón para ir a la página anterior -->
+                {{#if hasPrevPage}}
+                <li class="page-item">
+                    <a class="page-link" href="{{prevLink}}">Anterior</a>
+                </li>
+                {{else}}
+                <li class="page-item disabled">
+                    <span class="page-link">Anterior</span>
+                </li>
+                {{/if}}
+                
+                <!-- Botón para volver a la página 1 si estás en la página 2 -->
+                {{#if isPageTwo}}
+                <li class="page-item">
+                    <a class="page-link" href="/products?page=1">Volver a la página 1</a>
+                </li>
+                {{/if}}
+                
+                <!-- Botón para ir a la página siguiente -->
+                {{#if hasNextPage}}
+                <li class="page-item">
+                    <a class="page-link" href="{{nextLink}}">Siguiente</a>
+                </li>
+                {{else}}
+                <li class="page-item disabled">
+                    <span class="page-link">Siguiente</span>
+                </li>
+                {{/if}}
+            </ul>
+        </nav>
     </div>
 
     <footer class="bg-light text-center mt-4 py-3">

@@ -39,6 +39,8 @@ app.engine('handlebars', exphbs.engine({
     }
 }));
 
+
+
 app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/src/views');
 
@@ -67,17 +69,19 @@ app.get('/products', async (req, res) => {
 
         const result = await Product.paginate(filter, options);
 
+
         res.render('products', {
             products: result.docs,
             title: 'Lista de Productos',
             totalPages: result.totalPages,
             prevPage: result.prevPage,
             nextPage: result.nextPage,
-            page: result.page,
+            page: page,  // Asegura que page tenga un valor
             hasPrevPage: result.hasPrevPage,
             hasNextPage: result.hasNextPage,
             prevLink: result.hasPrevPage ? `/products?limit=${limit}&page=${result.prevPage}&sort=${sort}&query=${query}` : null,
             nextLink: result.hasNextPage ? `/products?limit=${limit}&page=${result.nextPage}&sort=${sort}&query=${query}` : null,
+            isPageTwo: page == 2  // Condición para verificar si estamos en la página 2
         });
     } catch (error) {
         console.error('Error al obtener los productos:', error);
