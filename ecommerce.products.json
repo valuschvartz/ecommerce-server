@@ -1,0 +1,167 @@
+[{
+  "_id": {
+    "$oid": "66ef29332d2a001916b1a370"
+  },
+  "name": "Star Whey Protein",
+  "description": "Proteína de suero de leche para aumento de masa muscular.",
+  "price": 29.99,
+  "stock": 100,
+  "category": "proteína",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29472d2a001916b1a372"
+  },
+  "name": "Ena Creatine",
+  "description": "Creatina pura para mejorar el rendimiento.",
+  "price": 19.99,
+  "stock": 150,
+  "category": "creatina",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29502d2a001916b1a374"
+  },
+  "name": "Star BCAA",
+  "description": "Aminoácidos de cadena ramificada para recuperación.",
+  "price": 24.99,
+  "stock": 80,
+  "category": "aminoácidos",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29592d2a001916b1a376"
+  },
+  "name": "Ena Glutamine",
+  "description": "Glutamina para mejorar la recuperación muscular.",
+  "price": 22.5,
+  "stock": 60,
+  "category": "aminoácidos",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29602d2a001916b1a378"
+  },
+  "name": "Vega One Shake",
+  "description": "Batido de proteínas vegetales con superfoods.",
+  "price": 39.99,
+  "stock": 50,
+  "category": "proteína",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef296c2d2a001916b1a37a"
+  },
+  "name": "MyProtein Impact Whey",
+  "description": "Proteína de suero de leche premium.",
+  "price": 29.99,
+  "stock": 120,
+  "category": "proteína",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29792d2a001916b1a37c"
+  },
+  "name": "NutraBlast Omega-3",
+  "description": "Suplemento de aceite de pescado Omega-3.",
+  "price": 18.5,
+  "stock": 100,
+  "category": "omega-3",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29822d2a001916b1a37e"
+  },
+  "name": "ProMix Protein Bar",
+  "description": "Barra de proteína orgánica y deliciosa.",
+  "price": 2.5,
+  "stock": 200,
+  "category": "snacks",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29912d2a001916b1a380"
+  },
+  "name": "FitJoy Protein Bar",
+  "description": "Barra de proteína alta en fibra.",
+  "price": 2.99,
+  "stock": 150,
+  "category": "snacks",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29992d2a001916b1a382"
+  },
+  "name": "Garden of Life Protein Powder",
+  "description": "Proteína en polvo de origen vegetal.",
+  "price": 34.99,
+  "stock": 70,
+  "category": "proteína",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29b32d2a001916b1a384"
+  },
+  "name": "Ultra Whey Protein",
+  "description": "Proteína de suero ultra filtrada para máxima pureza.",
+  "price": 32.99,
+  "stock": 0,
+  "category": "proteína",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29bb2d2a001916b1a386"
+  },
+  "name": "Ena Pre-Workout",
+  "description": "Suplemento pre-entrenamiento para energía y enfoque.",
+  "price": 27.5,
+  "stock": 0,
+  "category": "pre-entrenamiento",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef29d12d2a001916b1a38a"
+  },
+  "name": "Optimum Nutrition BCAA",
+  "description": "Aminoácidos de cadena ramificada para recuperación.",
+  "price": 29.99,
+  "stock": 20,
+  "category": "aminoácidos",
+  "__v": 0,
+  "available": true
+},
+{
+  "_id": {
+    "$oid": "66ef29d92d2a001916b1a38c"
+  },
+  "name": "NutraBlast Glutamine",
+  "description": "Suplemento de glutamina para recuperación post-entrenamiento.",
+  "price": 25.99,
+  "stock": 0,
+  "category": "aminoácidos",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66ef43dbee9b61ea44ece48b"
+  },
+  "name": "NutraBlast Glutamine",
+  "description": "Suplemento de glutamina para recuperación post-entrenamiento.",
+  "price": 25.99,
+  "stock": 0,
+  "category": "aminoácidos",
+  "available": false,
+  "__v": 0
+}]
