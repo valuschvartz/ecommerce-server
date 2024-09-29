@@ -470,7 +470,7 @@
 		{
 			"name": "agregar al carrito",
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -482,7 +482,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/carts/66ef5192ad9c5112c09bff49/products/66ef29592d2a001916b1a376",
+					"raw": "http://localhost:3000/api/carts/66f9935607b41ee6fab494af/products/66ef29472d2a001916b1a372",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -491,9 +491,9 @@
 					"path": [
 						"api",
 						"carts",
-						"66ef5192ad9c5112c09bff49",
+						"66f9935607b41ee6fab494af",
 						"products",
-						"66ef29592d2a001916b1a376"
+						"66ef29472d2a001916b1a372"
 					]
 				}
 			},

@@ -252,4 +252,145 @@
     }
   ],
   "__v": 1
+},
+{
+  "_id": {
+    "$oid": "66f9900d072c2a2dafb7df00"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "66ef29332d2a001916b1a370"
+      },
+      "quantity": 2,
+      "_id": {
+        "$oid": "66f99012072c2a2dafb7df06"
+      }
+    },
+    {
+      "product": {
+        "$oid": "66ef29602d2a001916b1a378"
+      },
+      "quantity": 1,
+      "_id": {
+        "$oid": "66f99078072c2a2dafb7df1b"
+      }
+    },
+    {
+      "product": {
+        "$oid": "66ef29502d2a001916b1a374"
+      },
+      "quantity": 1,
+      "_id": {
+        "$oid": "66f99101072c2a2dafb7df33"
+      }
+    },
+    {
+      "product": {
+        "$oid": "66ef296c2d2a001916b1a37a"
+      },
+      "quantity": 1,
+      "_id": {
+        "$oid": "66f99103072c2a2dafb7df3a"
+      }
+    }
+  ],
+  "__v": 4
+},
+{
+  "_id": {
+    "$oid": "66f9928207b41ee6fab49493"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "66ef29332d2a001916b1a370"
+      },
+      "quantity": 1,
+      "_id": {
+        "$oid": "66f9928907b41ee6fab4949c"
+      }
+    },
+    {
+      "product": {
+        "$oid": "66ef29602d2a001916b1a378"
+      },
+      "quantity": 1,
+      "_id": {
+        "$oid": "66f9928b07b41ee6fab494a1"
+      }
+    }
+  ],
+  "__v": 2
+},
+{
+  "_id": {
+    "$oid": "66f992b607b41ee6fab494a7"
+  },
+  "products": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f992b707b41ee6fab494ab"
+  },
+  "products": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f9935607b41ee6fab494af"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "66ef29472d2a001916b1a372"
+      },
+      "quantity": 2,
+      "_id": {
+        "$oid": "66f9944507b41ee6fab494b7"
+      }
+    }
+  ],
+  "__v": 1
+},
+{
+  "_id": {
+    "$oid": "66f99568ec09f5cf982b8dc7"
+  },
+  "products": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f9958aa36d74d28c16db2a"
+  },
+  "products": [],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66f9958fa36d74d28c16db2f"
+  },
+  "products": [
+    {
+      "product": {
+        "$oid": "66ef29602d2a001916b1a378"
+      },
+      "quantity": 1,
+      "_id": {
+        "$oid": "66f99594a36d74d28c16db38"
+      }
+    },
+    {
+      "product": {
+        "$oid": "66ef29822d2a001916b1a37e"
+      },
+      "quantity": 1,
+      "_id": {
+        "$oid": "66f99597a36d74d28c16db3d"
+      }
+    }
+  ],
+  "__v": 2
 }]
