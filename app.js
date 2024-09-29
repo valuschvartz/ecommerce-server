@@ -146,6 +146,7 @@ app.get('/products/:pid', async (req, res) => {
 });
 
 // Ruta para agregar productos al carrito
+// Ruta para agregar productos al carrito
 app.post('/api/carts/add-product', async (req, res) => {
     const { productId, quantity } = req.body;
     const cartId = req.session.cartId;  // Obtener el carrito de la sesión
@@ -157,6 +158,9 @@ app.post('/api/carts/add-product', async (req, res) => {
         if (!cart || !product) {
             return res.status(404).json({ message: 'Carrito o producto no encontrado' });
         }
+
+        console.log('ID del producto:', productId);
+        console.log('Contenido del carrito:', cart.products);
 
         // Verificar si el producto ya está en el carrito
         const productInCart = cart.products.find(p => p.product.equals(productId));
@@ -185,6 +189,21 @@ app.get('/carts', async (req, res) => {
             return res.status(404).json({ message: 'Carrito no encontrado' });
         }
         res.render('cart', { cart });
+    } catch (error) {
+        console.error('Error al obtener el carrito:', error);
+        res.status(500).json({ message: 'Error al obtener el carrito', error });
+    }
+});
+
+// Ruta para obtener el carrito por ID
+app.get('/api/carts/:cid', async (req, res) => {
+    const { cid } = req.params;
+    try {
+        const cart = await Cart.findById(cid).populate('products.product');
+        if (!cart) {
+            return res.status(404).json({ message: 'Carrito no encontrado' });
+        }
+        res.json(cart);
     } catch (error) {
         console.error('Error al obtener el carrito:', error);
         res.status(500).json({ message: 'Error al obtener el carrito', error });
